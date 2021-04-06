@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-from sentiment_classifier.model import Model, get_model
-from fine_grained_sentiment_classifier.model import FineGrainedModel, get_fine_grained_model
+from sentiment_analysers.model import Model, FineGrainedModel, EmotionModel, \
+    get_model, get_fine_grained_model, get_emotion_model
 import re
 import spacy_streamlit
 import en_core_web_sm
@@ -24,12 +24,17 @@ def main():
     emotion_filter = st.sidebar.multiselect('Emotion of content', ['Happy', 'Sad', 'Angry', 'Confused'])
     model = get_model()
     fine_grained_model = get_fine_grained_model()
+    emotion_model = get_emotion_model()
 
     sentiment, confidence, probabilities = model.predict(search_query)
     fg_sentiment, fg_confidence, fg_probabilities = fine_grained_model.predict(search_query)
+    em_sentiment, em_confidence, em_probabilities = emotion_model.predict(search_query)
+
 
     st.markdown('__Sentiment__ of this review is: `{0}`.'.format(sentiment))
     st.markdown('__Fine Grained Sentiment__ of this review is: `{0}`.'.format(fg_sentiment))
+    st.markdown('__Emotion__ of this review is: `{0}`.'.format(em_sentiment))
+
 
     # st.markdown('The confidence probabilities of the classes are `{0}`'.format(probabilities))
     # st.markdown('The confidence probabilities of the classes are `{0}`'.format(fg_probabilities))

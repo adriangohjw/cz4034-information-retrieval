@@ -1,13 +1,10 @@
 {
     "BERT_MODEL": "bert-base-cased",
-    "PRE_TRAINED_MODEL": "assets/final_model.bin",
+    "PRE_TRAINED_MODEL": "assets/final_model_subj_polar.bin",
     "SENTIMENT": [
-        "ANGRY", 
-        "DISGUST", 
-        "FEAR", 
-        "HAPPY", 
-        "SAD", 
-        "SURPRISE"
+        "NEGATIVE",
+        "NEUTRAL",
+        "POSITIVE"
     ],
     "MAX_SEQUENCE_LEN": 256
 }
