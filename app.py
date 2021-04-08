@@ -7,7 +7,7 @@ import re
 import spacy_streamlit
 import en_core_web_sm
 nlp = en_core_web_sm.load()
-
+import copy
 
 model = get_model()
 fine_grained_model = get_fine_grained_model()
@@ -63,15 +63,25 @@ def get_search_result(search_query):
 
 
 def main():
-    st.title("Hello from sudo")
-    st.write('\n')
+    # st.title("Hello from sudo")
+    st.markdown("# :wave: Hello! Welcome to `search.io`")
+    st.markdown("#### A blazing fast :rocket: search engine for Parler data")
+    html_string = "<br>"
+    st.markdown(html_string, unsafe_allow_html=True)
+    string ='''
+    
+            We have indexed **85 Million** posts from Parler before it was taken down. You can :mag: find the posts using the search term or even using certain :chart_with_upwards_trend: trending hashtags 
+            '''
+    st.markdown(string)
     search_query = st.text_input('Enter your search query')
+
     search_query = clean_text(search_query)
 
-    st.sidebar.markdown('**Filters**')
-    search_result_number = st.sidebar.slider('number of search results', min_value=1, max_value=50)
-    sentiment_filter = st.sidebar.multiselect('Sentiment of content', ['Positive', 'Negative', 'Neutral'])
-    emotion_filter = st.sidebar.multiselect('Emotion of content', ['Happy', 'Sad', 'Angry', 'Confused'])
+    st.sidebar.markdown('**Search filters**')
+    search_result_number = st.sidebar.slider('Number of search results', min_value=1, max_value=50)
+    st.sidebar.markdown('**Advanced Search filters**')
+    sentiment_filter = st.sidebar.multiselect('Sentiment of content', ['POSITIVE', 'NEGATIVE', 'NEUTRAL'])
+    emotion_filter = st.sidebar.multiselect('Emotion of content', ['HAPPY', 'SAD', 'ANGRY', 'DISGUST', 'SURPRISE', 'FEAR'])
 
     search_bool = st.button('Search')
     advanced_search_bool = st.button('Advanced Search')
@@ -80,17 +90,34 @@ def main():
 
         search_result_df = get_search_result(search_query)
 
-        temp_table = search_result_df[['body', 'creator', 'hashtags']]
+        temp_table = search_result_df[['body', 'creator', 'hashtags', 'reach_score']]
         temp_table = temp_table[:search_result_number]
 
         st.table(temp_table)
+
+        st.markdown("**Search Results Summary - Average**")
+        st.dataframe(search_result_df[['followers', 'impressions', 'upvotes', 'reposts', 'creator_score', 'reach_score']].mean())
     
     if advanced_search_bool:
     
         search_result_df = get_search_result(search_query)
-        temp_table = search_result_df[['body', 'creator', 'hashtags']]
-        temp_table = temp_table[:search_result_number]
-        temp_table = get_sentiment_analysis(temp_table)
+        mod_table = search_result_df[['body', 'creator', 'hashtags', 'reach_score']]
+        mod_table = mod_table[:search_result_number]
+        mod_table = get_sentiment_analysis(mod_table)
+        temp_table = copy.deepcopy(mod_table)
+
+        print(emotion_filter, sentiment_filter)
+
+        if sentiment_filter:
+            temp_table = temp_table.loc[temp_table['fg_sentiment'].isin(sentiment_filter)]
+            print("sf")
+            print(temp_table)
+
+        if emotion_filter:
+            temp_table = temp_table.loc[temp_table['em_sentiment'].isin(emotion_filter)]
+            print("sf")
+            print(temp_table)
+
         st.table(temp_table)
 
 
