@@ -2,7 +2,6 @@
     "BERT_MODEL": "bert-base-cased",
     "PRE_TRAINED_MODEL": "assets/final_model_fine_grained.bin",
     "SENTIMENT": [
-        "NEUTRAL", 
         "SOMEWHAT NEGATIVE", 
         "SOMEWHAT POSITIVE", 
         "VERY NEGATIVE", 
