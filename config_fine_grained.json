@@ -1,0 +1,11 @@
+{
+    "BERT_MODEL": "bert-base-cased",
+    "PRE_TRAINED_MODEL": "assets/final_model_fine_grained.bin",
+    "SENTIMENT": [
+        "SOMEWHAT NEGATIVE", 
+        "SOMEWHAT POSITIVE", 
+        "VERY NEGATIVE", 
+        "VERY POSITIVE"
+    ],
+    "MAX_SEQUENCE_LEN": 256
+}

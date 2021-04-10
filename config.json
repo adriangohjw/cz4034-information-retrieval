@@ -1,0 +1,9 @@
+{
+    "BERT_MODEL": "bert-base-cased",
+    "PRE_TRAINED_MODEL": "assets/final_model_subj_polar.bin",
+    "SENTIMENT": [
+        "NEUTRAL",
+        "OPINIONATED"
+    ],
+    "MAX_SEQUENCE_LEN": 256
+}
