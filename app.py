@@ -45,6 +45,7 @@ def clean_text(text):
     text = re.sub(r'[^\x00-\x7F]+', '', text) 
     return text
 
+@st.cache()
 def get_search_result(search_query, search_result_number):
 
     url = "http://35.240.168.75:3000/search?search_term={}&size={}".format(search_query, search_result_number)
@@ -61,6 +62,7 @@ def get_search_result(search_query, search_result_number):
 
     return search_result_df
 
+@st.cache()
 def get_search_suggestion(search_query):
 
     url = "http://35.240.168.75:3000/suggest?search_term={}".format(search_query)
@@ -129,7 +131,7 @@ def main():
         search_result_df = get_search_result(search_query, search_result_number)
 
         # temp_table = search_result_df[['body', 'creator', 'hashtags', 'reach_score']]
-        temp_table = search_result_df[['_source_body', '_source_username']]
+        temp_table = search_result_df[['_source_body', '_source_username', '_score']]
 
 
 
