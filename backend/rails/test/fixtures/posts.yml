@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  unique_id: MyString
+  body: MyString
+  hashtags: 
+  creator: MyString
+  verified: false
+  followers: 1
+  following: 1
+  impressions: 1
+  upvotes: 1
+  reposts: 1
+  posted_at: 2021-03-28 15:36:36
+
+two:
+  unique_id: MyString
+  body: MyString
+  hashtags: 
+  creator: MyString
+  verified: false
+  followers: 1
+  following: 1
+  impressions: 1
+  upvotes: 1
+  reposts: 1
+  posted_at: 2021-03-28 15:36:36
