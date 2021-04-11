@@ -1,4 +1,4 @@
-# cz4034-information-retrieval-
+# CZ4034 : Information Retrieval
 
 1. Install packages in a separate venv
 ```
